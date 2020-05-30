@@ -1,10 +1,10 @@
 #include <stdio.h>
 int max;
-unsigned long int array[] = {3,4,1,2,3,0,4,2,1,5,3,2,1,1,22};
+unsigned long int array[] = {10,10,100};
 int n = sizeof(array)/ sizeof(int);
 int main() {
     int sorted[n]; // відсортований масив
-
+int min = array[0];
     max = array[0]; // максимальне значення масиву для визначення розміру буферного масива
 
     for(int i=0;i<n;i++){ // визначення макс елементу
@@ -12,29 +12,35 @@ int main() {
         {
             max=array[i];
         }
+        if (array[i]<min)
+        {
+            min=array[i];
+        }
     }
-    int a[max+1];
+    int a[max-min];
 
-    for(int i =0;i<max+1;i++){
+    for(int i =0;i<max+1-min;i++){
        a[i]=0;
     }
 
     for(int i=0;i<n;i++){
-        a[array[i]]+=1;
+        a[array[i]-min]+=1;
     }
 
     int iterator = 0;
 
-        for(int j =0;j<max+1;j++) {
+        for(int j =0;j<max+1-min;j++) {
             for(int i=0;i<a[j];i++){
 
-                sorted[iterator]=j;
+                sorted[iterator]=j+min;
                 iterator++;
             }
         }
 
     for(int i=0;i<n;i++){
         printf("%d ",sorted[i] );
+
     }
+    printf("\n %d",max-min);
     return 0;
 }
